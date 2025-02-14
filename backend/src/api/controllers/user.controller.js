@@ -1,10 +1,11 @@
-const User = require('../models/user.model'); // Import user model
+const User = require('../models/user.model');
+const Pet = require('../models/pet.model');
 const bcrypt = require('bcrypt');
-const { signGenerate } = require('../../utils/jwt'); // Import JWT functions
+const { signGenerate } = require('../../utils/jwt');
 
 const getAllUser = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate();
 
     if (!users.length) {
       return res.status(404).json({ message: 'No users found' });
@@ -131,10 +132,11 @@ const updateUser = async (req, res, next) => {
       .json({ message: 'Error updating user', error: error.message });
   }
 };
-
 const getCurrentUser = async (req, res, next) => {
   try {
-    const user = req.user;
+    const userId = req.user._id;
+
+    const user = await User.findById(userId).populate('favourites');
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -142,9 +144,10 @@ const getCurrentUser = async (req, res, next) => {
 
     res.status(200).json(user);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: 'Error fetching user data', error: error.message });
+    res.status(500).json({
+      message: 'Error fetching user data',
+      error: error.message
+    });
   }
 };
 
@@ -157,14 +160,12 @@ const deleteUser = async (req, res, next) => {
     if (!userToDelete) {
       return res.status(404).json({ message: 'User not found' });
     }
-
-    const isAdmin = req.user.role === 'admin';
     const isSelf = req.user._id.toString() === userToDelete._id.toString();
 
-    if (!isAdmin && !isSelf) {
+    if (isSelf) {
       return res
         .status(403)
-        .json({ message: 'You do not have permission to delete this user' });
+        .json({ message: 'You cannot delete your own user' });
     }
 
     await Adoption.deleteMany({ user: userToDelete._id });
@@ -181,11 +182,50 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+const setFavourite = async (req, res) => {
+  try {
+    const { petId } = req.params;
+    const userId = req.user._id;
+
+    const user = await User.findById(userId);
+
+    const pet = await Pet.findById(petId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (!pet) {
+      return res.status(404).json({ message: 'Pet not found' });
+    }
+
+    const isFavourite = user.favourites.some((fav) => fav.toString() === petId);
+
+    if (isFavourite) {
+      user.favourites = user.favourites.filter(
+        (fav) => fav.toString() !== petId
+      );
+      await user.save();
+      return res.status(200).json({ message: 'Pet removed from favourites' });
+    } else {
+      user.favourites.push(petId);
+      await user.save();
+      return res.status(200).json({ message: 'Pet added to favourites' });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Error setting favourite',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getAllUser,
   registerUser,
   loginUser,
   updateUser,
   getCurrentUser,
-  deleteUser
+  deleteUser,
+  setFavourite
 };

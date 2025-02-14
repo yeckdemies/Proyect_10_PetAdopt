@@ -8,7 +8,7 @@ const isAdmin = (req, res, next) => {
 
     if (req.user.role !== 'admin') {
       return res.status(403).json({
-        message: 'Acceso denegado. No tienes permisos de administrador.'
+        message: 'Access denied. You do not have administrator permissions.'
       });
     }
 
@@ -16,7 +16,7 @@ const isAdmin = (req, res, next) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ message: 'Error en la verificación de permisos.' });
+      .json({ message: 'Error in permission verification.' });
   }
 };
 

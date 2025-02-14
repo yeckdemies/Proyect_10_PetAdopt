@@ -1,37 +1,10 @@
-const mongoose = require('mongoose');
+const Pet = require('../models/pet.model'); // Import user model
+const bcrypt = require('bcrypt');
+const { signGenerate } = require('../../utils/jwt');
 
-const adoptionSchema = new mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
-      required: true
-    },
-    pet: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'pets',
-      required: true
-    },
-    status: {
-      type: String,
-      enum: ['Pending', 'Approved', 'Rejected'],
-      default: 'pending'
-    },
-    adoptionDate: {
-      type: Date,
-      default: Date.now
-    },
-    comments: {
-      type: String,
-      trim: true
-    }
-  },
-  {
-    timestamps: true,
-    collection: 'adoptions'
-  }
-);
-
-const Adoption = mongoose.model('adoptions', adoptionSchema, 'adoptions');
-
-module.exports = Adoption;
+/*
+  getAllAdoption,
+  registerAdoption,
+  updateAdoption,
+  deleteAdoption
+*/
