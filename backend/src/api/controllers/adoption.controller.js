@@ -73,7 +73,6 @@ const updateAdoption = async (req, res, next) => {
   try {
     const { adoptionId } = req.params;
     const { status, comments } = req.body;
-    const userId = req.user._id;
 
     if (!mongoose.Types.ObjectId.isValid(adoptionId)) {
       return res.status(400).json({ message: 'Invalid adoption ID' });
@@ -84,7 +83,6 @@ const updateAdoption = async (req, res, next) => {
       return res.status(404).json({ message: 'Adoption not found' });
     }
 
-    // 4️⃣ Validar que solo se actualicen `status` y `comments`
     const updates = {};
     if (status) {
       if (!['Pending', 'Approved', 'Rejected'].includes(status)) {
@@ -96,7 +94,6 @@ const updateAdoption = async (req, res, next) => {
       updates.comments = comments;
     }
 
-    // 5️⃣ Aplicar las actualizaciones
     const updatedAdoption = await Adoption.findByIdAndUpdate(
       adoptionId,
       { $set: updates },
@@ -115,10 +112,27 @@ const updateAdoption = async (req, res, next) => {
   }
 };
 
-/*
-  ,
-  ,
-  deleteAdoption
-*/
+const deleteAdoption = async (req, res, next) => {
+  try {
+    const { adoptionId } = req.params;
 
-module.exports = { getAllAdoption, registerAdoption, updateAdoption };
+    if (!mongoose.Types.ObjectId.isValid(adoptionId)) {
+      return res.status(400).json({ error: 'Invalid Adoption ID format' });
+    }
+
+    const adoptionDeleted = await Adoption.findByIdAndDelete(adoptionId);
+
+    if (!adoptionDeleted) {
+      return res.status(404).json({ error: 'Adoption not found' });
+    }
+
+    return res
+      .status(200)
+      .json({ mmessage: 'Adoption deleted successfully', recipe: adoptionDeleted });
+  } catch (error) {
+    console.error('Error deleting Adoption:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+module.exports = { getAllAdoption, registerAdoption, updateAdoption, deleteAdoption };
