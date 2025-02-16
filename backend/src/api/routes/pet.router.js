@@ -4,13 +4,15 @@ const { isAdmin } = require('../../middlewares/role');
 const { uploadPet } = require('../../middlewares/upload-file');
 const {
   getAllPet,
+  getAvailablePets,
   registerPet,
   updatePet,
   deletePet
 } = require('../controllers/pet.controller');
 const petRouter = express.Router();
 
-petRouter.get('/', [isAuth, isAdmin], getAllPet);
+petRouter.get('/', [isAuth], getAllPet);
+petRouter.get('/getAvailablePets', getAvailablePets);
 petRouter.post(
   '/registerPet',
   [isAuth, isAdmin, uploadPet.single('imageUrl')],

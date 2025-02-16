@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Pet = require('../models/pet.model');
 const { deletefile } = require('../../utils/deletefile');
 const { uploadPet } = require('../../middlewares/upload-file');
+const Adoption = require('../models/adoption.model');
 const cloudinary = require('cloudinary').v2;
 
 const getAllPet = async (req, res, next) => {
@@ -17,6 +18,18 @@ const getAllPet = async (req, res, next) => {
     return res
       .status(500)
       .json({ message: 'Error fetching pets', error: error.message });
+  }
+};
+
+const getAvailablePets = async (req, res) => {
+  try {
+    const adoptedPets = await Adoption.distinct('pet');
+
+    const availablePets = await Pet.find({ _id: { $nin: adoptedPets } });
+
+    return res.status(200).json({ availablePets });
+  } catch (error) {
+    return res.status(500).json({ message: 'Error fetching available pets', error: error.message });
   }
 };
 
@@ -191,4 +204,4 @@ const deletePet = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllPet, registerPet, updatePet, deletePet };
+module.exports = { getAllPet, getAvailablePets, registerPet, updatePet, deletePet };
