@@ -1,10 +1,15 @@
-// Importa el archivo de estilos CSS. 
-//import "./src/style.css"; 
-
-import main from "./components/main.js";
 import Pets from "./pages/pets.js";
+import Header from './components/header/header.js';
 
-document.querySelector("header").appendChild(main);
+
+
+const app = document.querySelector("#app");
+
+
+
+
+app.innerHTML += Header;
+
 
 document.querySelector("#petslink").addEventListener("click", (event) => {
     event.preventDefault();
