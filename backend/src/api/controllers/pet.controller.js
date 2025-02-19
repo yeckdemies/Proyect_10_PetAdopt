@@ -29,13 +29,15 @@ const getAvailablePets = async (req, res) => {
 
     return res.status(200).json({ availablePets });
   } catch (error) {
-    return res.status(500).json({ message: 'Error fetching available pets', error: error.message });
+    return res
+      .status(500)
+      .json({ message: 'Error fetching available pets', error: error.message });
   }
 };
 
 const registerPet = async (req, res) => {
   try {
-    const { chip, name, age, sexo, size } = req.body;
+    const { chip, name, age, sexo, size, type } = req.body;
 
     const existingPet = await Pet.findOne({ chip });
 
@@ -64,6 +66,7 @@ const registerPet = async (req, res) => {
             age,
             sexo,
             size,
+            type,
             imageUrl: uploadResult.secure_url
           });
 
@@ -94,7 +97,7 @@ const registerPet = async (req, res) => {
 const updatePet = async (req, res, next) => {
   try {
     const { petId } = req.params;
-    const { chip, name, age, sexo, size } = req.body;
+    const { chip, name, age, sexo, size, type } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(petId)) {
       return res.status(400).json({ error: 'Invalid Pet ID format' });
@@ -124,6 +127,10 @@ const updatePet = async (req, res, next) => {
     }
     if (size && size !== petToUpdate.size) {
       changes.size = size;
+    }
+
+    if (type && type !== petToUpdate.type) {
+      changes.type;
     }
 
     if (req.file) {
@@ -204,4 +211,10 @@ const deletePet = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllPet, getAvailablePets, registerPet, updatePet, deletePet };
+module.exports = {
+  getAllPet,
+  getAvailablePets,
+  registerPet,
+  updatePet,
+  deletePet
+};

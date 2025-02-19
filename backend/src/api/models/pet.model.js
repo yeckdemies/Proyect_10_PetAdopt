@@ -28,6 +28,11 @@ const petSchema = new mongoose.Schema(
       type: String,
       required: true,
       enum: ['Grande', 'Mediano', 'Pequeño']
+    },
+    type: {
+      type: String,
+      required: true,
+      enum: ['Perro', 'Gato']
     }
   },
   {

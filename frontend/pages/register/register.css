@@ -1,0 +1,120 @@
+/* Contenedor principal del registro */
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("https://source.unsplash.com/1600x900/?animals,nature") center/cover no-repeat;
+}
+
+/* Capa de fondo semi-transparente */
+.register-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+/* Formulario de registro */
+.register-form {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 350px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.register-form h2 {
+  margin-bottom: 15px;
+  font-size: 1.6em;
+  color: #333;
+}
+
+/* Estilos de los inputs */
+.register-input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid #ff6600;
+  border-radius: 8px;
+  font-size: 1em;
+  background: white;
+  transition: 0.3s;
+}
+
+.register-input:focus {
+  border-color: #ff4500;
+  outline: none;
+}
+
+/* Botón de registro */
+.register-btn {
+  background: linear-gradient(90deg, #ff7b00, #ff4d00);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  margin-top: 15px;
+}
+
+.register-btn:hover {
+  background: linear-gradient(90deg, #ff4d00, #ff2200);
+  transform: scale(1.05);
+}
+
+.register-btn:active {
+  transform: scale(0.95);
+}
+
+/* Botón cancelar */
+.cancel-btn {
+  background: #ccc;
+  color: #333;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.cancel-btn:hover {
+  background: #bbb;
+  transform: scale(1.05);
+}
+
+/* Texto de volver al login */
+.login-text {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.login-text a {
+  color: #ff6600;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}

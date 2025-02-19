@@ -19,6 +19,7 @@ const createCard = (pet) => {
       <p class="card-info">Edad: ${pet.age} años</p>
       <p class="card-info">Sexo: ${pet.sexo}</p>
       <p class="card-info">Tamaño: ${pet.size}</p>
+      <p class="card-info">Especie: ${pet.type}</p>
       <div class="button-container"></div>
     </div>
   `;

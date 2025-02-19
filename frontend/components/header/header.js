@@ -12,10 +12,8 @@ Header.innerHTML = `
         <nav>
             <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
             <ul class="nav-menu">
-                <li><a href="#" id="petslink">Mascotas</a></li>
-                <li><a href="#">Cómo Adoptar</a></li>
-                <li><a href="#">Sobre Nosotros</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li><a href="#" id="petslink">Inicio</a></li>
+                <li><a href="#" id="login-link">Login</a></li>
             </ul>
         </nav>
     </header>
