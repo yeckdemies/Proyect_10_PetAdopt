@@ -1,13 +1,16 @@
 import { navigate } from '../../utils/functions/navigate';
+import { validateUser } from '../../utils/functions/validateUser';
 import { routes } from '../../utils/routes/routes';
 import './Header.css';
 
-export const Header = () => {
+export const Header = async () => {
   const header = document.createElement('header');
   const logo = document.createElement('div');
   const nav = document.createElement('nav');
   const ul = document.createElement('ul');
   const button = document.createElement('button');
+  const userContainer = document.createElement('div');
+
   ul.className = 'nav-menu';
   button.className = 'menu-toggle';
   button.setAttribute('aria-label', 'Toggle Menu');
@@ -30,7 +33,19 @@ export const Header = () => {
 
   a.addEventListener('click', (e) => navigate(e, routes[0]));
 
-  for (const route of routes) {
+  const user = await validateUser();
+  const isAuthenticated = !!user;
+
+  userContainer.className = 'user-container';
+
+  const visibleRoutes = routes.filter((route) => {
+    if (!isAuthenticated) {
+      return route.name === 'Animales' || route.name === 'Login';
+    }
+    return route.name !== 'Login';
+  });
+
+  for (const route of visibleRoutes) {
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = route.path;
@@ -41,6 +56,29 @@ export const Header = () => {
     li.appendChild(a);
     ul.appendChild(li);
   }
+
+  if (isAuthenticated) {
+    const welcomeText = document.createElement('span');
+    welcomeText.textContent = `Bienvenid@, ${user.userName || 'Usuario'}`;
+    welcomeText.className = 'welcome-text';
+
+    const logoutBtn = document.createElement('button');
+    logoutBtn.textContent = 'Desconectar';
+    logoutBtn.className = 'logout-button';
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+
+      document.querySelector('header').remove();
+      Header();
+    });
+
+    userContainer.appendChild(welcomeText);
+    userContainer.appendChild(logoutBtn);
+    nav.appendChild(userContainer);
+  }
+
   header.appendChild(logo);
   header.appendChild(nav);
   nav.appendChild(ul);

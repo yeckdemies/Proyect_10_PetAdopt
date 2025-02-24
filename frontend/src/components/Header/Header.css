@@ -36,6 +36,33 @@ nav {
   font-weight: bold;
 }
 
+.user-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+  color: #000;
+}
+
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
@@ -57,5 +84,18 @@ nav {
 
   .nav-menu.open {
     height: 200px;
+  }
+
+  .user-container {
+    flex-direction: column; /* Apilar elementos en móviles */
+    align-items: flex-end; /* Alinear a la derecha */
+  }
+
+  .welcome-text {
+    font-size: 12px; /* Reducir tamaño en móviles */
+  }
+
+  .logout-button {
+    font-size: 10px; /* Hacer el botón aún más discreto */
   }
 }

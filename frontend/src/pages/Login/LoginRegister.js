@@ -1,3 +1,4 @@
+import { Header } from '../../components/Header/Header';
 import { navigate } from '../../utils/functions/navigate';
 import { routes } from '../../utils/routes/routes';
 import './LoginRegister.css';
@@ -201,6 +202,9 @@ const handleResponse = async (res, form) => {
 
   localStorage.setItem('token', respuestaFinal.token);
   localStorage.setItem('user', JSON.stringify(respuestaFinal.user));
+
+  document.querySelector('header').remove();
+  Header();
 
   cerrarFormulario();
 };
