@@ -16,7 +16,6 @@
   overflow: hidden;
 }
 
-/* Animación de destello */
 .adopt-btn::before {
   content: '';
   position: absolute;

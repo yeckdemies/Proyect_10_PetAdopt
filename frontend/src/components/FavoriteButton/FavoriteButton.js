@@ -1,9 +1,6 @@
-const link = document.createElement('link');
-link.rel = 'stylesheet';
-link.href = './components/FavoriteButton/FavoriteButton.css'; // Ruta relativa correcta
-document.head.appendChild(link);
+import './FavoriteButton.css';
 
-const FavoriteButton = (pet) => {
+export const FavoriteButton = (pet) => {
   const button = document.createElement('button');
   button.classList.add('favorite-btn');
 
@@ -30,5 +27,3 @@ const FavoriteButton = (pet) => {
 
   return button;
 };
-
-export default FavoriteButton;

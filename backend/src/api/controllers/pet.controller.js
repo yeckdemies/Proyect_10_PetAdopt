@@ -130,7 +130,7 @@ const updatePet = async (req, res, next) => {
     }
 
     if (type && type !== petToUpdate.type) {
-      changes.type;
+      changes.type = type;
     }
 
     if (req.file) {

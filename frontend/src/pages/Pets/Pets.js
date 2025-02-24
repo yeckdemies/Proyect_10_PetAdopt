@@ -1,9 +1,17 @@
-import createCard from '../components/Card/Card.js';
+import './Pets.css';
+import { createCard } from '../../components/Card/Card';
 
-const Pets = async () => {
+export const Pets = async () => {
+  const main = document.querySelector('main');
+  main.innerHTML = '';
+
   const container = document.createElement('section');
   container.id = 'pets';
-  container.innerHTML = `<ul id="petscontainer"></ul>`;
+
+  const ul = document.createElement('ul');
+  ul.id = 'petscontainer';
+
+  container.appendChild(ul);
 
   const petsData = await fetch(
     'http://localhost:3000/api/v1/pets/getAvailablePets/'
@@ -19,15 +27,14 @@ const Pets = async () => {
 
   const petsContainer = container.querySelector('#petscontainer');
 
-  // Limpiar antes de agregar nuevas tarjetas
   petsContainer.innerHTML = '';
 
   for (const pet of pets) {
+    const li = document.createElement('li');
     const card = createCard(pet);
-    petsContainer.appendChild(card);
+    li.appendChild(card);
+    petsContainer.append(li);
   }
 
-  return container; // Devuelve un nodo HTML
+  main.append(container);
 };
-
-export default Pets;

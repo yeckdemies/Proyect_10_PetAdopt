@@ -38,22 +38,24 @@ nav {
 
 @media (max-width: 768px) {
   .menu-toggle {
-      display: block;
+    display: block;
   }
 
   .nav-menu {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: white;
-      flex-direction: column;
-      width: 200px;
-      height: 0;
-      overflow: hidden;
-      transition: height 0.3s ease-in-out;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    width: 200px;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+    z-index: 100;
+    padding: 0 20px;
   }
 
   .nav-menu.open {
-      height: 200px;
+    height: 200px;
   }
 }
