@@ -70,8 +70,7 @@ export const Header = async () => {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
 
-      document.querySelector('header').remove();
-      Header();
+      location.reload();
     });
 
     userContainer.appendChild(welcomeText);

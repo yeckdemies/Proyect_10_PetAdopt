@@ -203,8 +203,6 @@ const handleResponse = async (res, form) => {
   localStorage.setItem('token', respuestaFinal.token);
   localStorage.setItem('user', JSON.stringify(respuestaFinal.user));
 
-  document.querySelector('header').remove();
-  Header();
-
   cerrarFormulario();
+  location.reload();
 };
