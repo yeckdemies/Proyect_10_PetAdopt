@@ -33,7 +33,7 @@ export const removeFavorite = async (petId) => {
 
   try {
     const response = await fetch(`${API_URL}/removeFavourite/${petId}`, {
-      method: 'DELETE',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
