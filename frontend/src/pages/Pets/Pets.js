@@ -23,7 +23,6 @@ export const Pets = async () => {
   }
 
   const pets = petsResponse.availablePets;
-  console.log('Pets Array:', pets);
 
   const petsContainer = container.querySelector('#petscontainer');
 

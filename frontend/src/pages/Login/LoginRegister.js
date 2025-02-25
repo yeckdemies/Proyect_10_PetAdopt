@@ -1,3 +1,4 @@
+import { Button } from '../../components/Button/Button';
 import { cerrarFormulario } from '../../utils/functions/tools';
 import './LoginRegister.css';
 
@@ -28,13 +29,12 @@ const Login = (elementoPadre) => {
   const inputUser = document.createElement('input');
   const inputEmail = document.createElement('input');
   const inputPassword = document.createElement('input');
-  const acceder = document.createElement('button');
-  const cancelar = document.createElement('button');
+  const acceder = Button('Acceder');
+  const cancelar = Button('Cancelar');
   const p = document.createElement('p');
 
   acceder.type = 'submit';
   acceder.classList.add('login-btn');
-  acceder.textContent = 'Acceder';
 
   cancelar.type = 'button';
   cancelar.classList.add('cancel-btn');

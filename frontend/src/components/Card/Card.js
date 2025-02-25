@@ -58,7 +58,9 @@ export const createCard = (pet) => {
   cardBody.appendChild(div2);
 
   const buttonContainer = card.querySelector('.button-container');
-  buttonContainer.append(Button('Adoptar'));
+  const button = Button('Adoptar');
+  button.classList.add('adopt-btn');
+  buttonContainer.append(button);
 
   const favoriteContainer = card.querySelector('.favorite-container');
   favoriteContainer.append(FavoriteButton(pet));
