@@ -1,5 +1,5 @@
 import { Header } from '../../components/Header/Header';
-import { navigate } from '../../utils/functions/navigate';
+import { navigate } from '../../utils/functions/navegate';
 import { routes } from '../../utils/routes/routes';
 import './LoginRegister.css';
 
@@ -186,7 +186,7 @@ const handleResponse = async (res, form) => {
   if (res.status === 400) {
     const pError = document.createElement('p');
     pError.classList.add('error');
-    pError.textContent = 'Error en el proceso';
+    pError.textContent = 'Error, usuario o contraseña incorrectos';
     pError.style.color = 'red';
 
     form.append(pError);
