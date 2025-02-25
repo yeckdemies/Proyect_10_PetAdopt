@@ -6,7 +6,8 @@ const {
   getCurrentUser,
   updateUser,
   setFavourite,
-  deleteUser
+  deleteUser,
+  removeFavourite
 } = require('../controllers/user.controller');
 const { isAuth } = require('../../middlewares/auth');
 const { isAdmin } = require('../../middlewares/role');
@@ -19,6 +20,7 @@ userRouter.post('/register', registerUser);
 userRouter.post('/login', loginUser);
 userRouter.put('/editUser', isAuth, updateUser);
 userRouter.put('/setFavourite/:petId', [isAuth], setFavourite);
+userRouter.put('/removeFavourite/:petId', [isAuth], removeFavourite);
 userRouter.delete('/deleteUser', [isAuth, isAdmin], deleteUser);
 
 module.exports = userRouter;

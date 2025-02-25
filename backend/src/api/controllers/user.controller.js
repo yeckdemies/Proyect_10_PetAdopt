@@ -132,6 +132,7 @@ const updateUser = async (req, res, next) => {
       .json({ message: 'Error updating user', error: error.message });
   }
 };
+
 const getCurrentUser = async (req, res, next) => {
   try {
     const userId = req.user._id;
@@ -220,6 +221,38 @@ const setFavourite = async (req, res) => {
   }
 };
 
+const removeFavourite = async (req, res) => {
+  try {
+    const { petId } = req.params;
+    const userId = req.user._id;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const pet = await Pet.findById(petId);
+    if (!pet) {
+      return res.status(404).json({ message: 'Pet not found' });
+    }
+
+    const isFavourite = user.favourites.some((fav) => fav.toString() === petId);
+    if (!isFavourite) {
+      return res.status(400).json({ message: 'Pet is not in favourites' });
+    }
+
+    user.favourites = user.favourites.filter((fav) => fav.toString() !== petId);
+    await user.save();
+
+    return res.status(200).json({ message: 'Pet removed from favourites' });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Error removing favourite',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getAllUser,
   registerUser,
@@ -227,5 +260,6 @@ module.exports = {
   updateUser,
   getCurrentUser,
   deleteUser,
-  setFavourite
+  setFavourite,
+  removeFavourite
 };

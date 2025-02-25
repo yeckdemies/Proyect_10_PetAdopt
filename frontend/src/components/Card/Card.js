@@ -3,7 +3,7 @@ import './Card.css';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { Button } from '../Button/Button';
 
-export const createCard = (pet) => {
+export const createCard = async (pet) => {
   const card = document.createElement('div');
   card.classList.add('card');
 
@@ -63,7 +63,8 @@ export const createCard = (pet) => {
   buttonContainer.append(button);
 
   const favoriteContainer = card.querySelector('.favorite-container');
-  favoriteContainer.append(FavoriteButton(pet));
+  const favoriteButton = await FavoriteButton(pet);
+  favoriteContainer.append(favoriteButton);
 
   return card;
 };

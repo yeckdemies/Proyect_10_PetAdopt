@@ -30,7 +30,7 @@ export const Pets = async () => {
 
   for (const pet of pets) {
     const li = document.createElement('li');
-    const card = createCard(pet);
+    const card = await createCard(pet);
     li.appendChild(card);
     petsContainer.append(li);
   }
