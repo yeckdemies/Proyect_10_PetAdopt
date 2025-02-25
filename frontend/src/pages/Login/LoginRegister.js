@@ -1,6 +1,4 @@
-import { Header } from '../../components/Header/Header';
-import { navigate } from '../../utils/functions/navegate';
-import { routes } from '../../utils/routes/routes';
+import { cerrarFormulario } from '../../utils/functions/functions';
 import './LoginRegister.css';
 
 export const LoginRegister = () => {
@@ -130,14 +128,6 @@ const Login = (elementoPadre) => {
     acceder.textContent = 'Acceder';
     loginText.style.display = 'none';
   });
-};
-
-const cerrarFormulario = () => {
-  const loginOverlay = document.querySelector('.login-overlay');
-  if (loginOverlay) {
-    loginOverlay.remove();
-  }
-  navigate({ preventDefault: () => {} }, routes[0]);
 };
 
 const submitLogin = async (userName, password, form) => {
