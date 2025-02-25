@@ -1,4 +1,4 @@
-import { navigate, validateUser } from '../../utils/functions/functions';
+import { navigate, validateUser } from '../../utils/functions/tools';
 import { routes } from '../../utils/routes/routes';
 import './Header.css';
 

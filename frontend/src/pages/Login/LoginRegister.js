@@ -1,4 +1,4 @@
-import { cerrarFormulario } from '../../utils/functions/functions';
+import { cerrarFormulario } from '../../utils/functions/tools';
 import './LoginRegister.css';
 
 export const LoginRegister = () => {
