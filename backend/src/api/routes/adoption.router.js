@@ -17,10 +17,6 @@ adoptionRouter.put(
   [isAuth, isAdmin],
   updateAdoption
 );
-adoptionRouter.delete(
-  '/deleteAdoption/:adoptionId',
-  [isAuth, isAdmin],
-  deleteAdoption
-);
+adoptionRouter.delete('/deleteAdoption/:adoptionId', isAuth, deleteAdoption);
 
 module.exports = adoptionRouter;

@@ -38,46 +38,43 @@ export const Adoption = async () => {
 
     const li = document.createElement('li');
     li.classList.add('adoption-item');
+
     li.innerHTML = `
-          <p><strong>Mascota:</strong> ${adoption.pet.name} (${
+      <p><strong>Mascota:</strong> ${adoption.pet.name} (${
       adoption.pet.type
     }, ${adoption.pet.sexo})</p>
-          <p><strong>Solicitante:</strong> ${adoption.user.userName} (${
+      <p><strong>Solicitante:</strong> ${adoption.user.userName} (${
       adoption.user.email
     })</p>
-          <p><strong>Fecha de solicitud:</strong> ${new Date(
-            adoption.adoptionDate
-          ).toLocaleDateString()}</p>
-          <p><strong>Estado:</strong> ${adoption.status}</p>
-          <p><strong>Comentarios:</strong> ${
-            adoption.comments || 'Sin comentarios'
-          }</p>
-          <div class="status-buttons">
-              ${
-                USER_ROLE === 'admin'
-                  ? `
-                  <button onclick="handleUpdate('${
-                    adoption._id
-                  }', 'Pending')" ${
-                      adoption.status === 'Pending' ? 'disabled' : ''
-                    }>Pendiente</button>
-                  <button onclick="handleUpdate('${
-                    adoption._id
-                  }', 'Approved')" ${
-                      adoption.status === 'Approved' ? 'disabled' : ''
-                    }>Aprobada</button>
-                  <button onclick="handleUpdate('${
-                    adoption._id
-                  }', 'Rejected')" ${
-                      adoption.status === 'Rejected' ? 'disabled' : ''
-                    }>Rechazada</button>
-              `
-                  : `
-                  <button onclick="handleDelete('${adoption._id}')">Cancelar solicitud</button>
-              `
-              }
-          </div>
-      `;
+      <p><strong>Fecha de solicitud:</strong> ${new Date(
+        adoption.adoptionDate
+      ).toLocaleDateString()}</p>
+      <p><strong>Estado:</strong> ${adoption.status}</p>
+      <p><strong>Comentarios:</strong> ${
+        adoption.comments || 'Sin comentarios'
+      }</p>
+      <div class="status-buttons"></div>
+    `;
+
+    const buttonContainer = li.querySelector('.status-buttons');
+
+    if (USER_ROLE === 'admin') {
+      ['Pending', 'Approved', 'Rejected'].forEach((status) => {
+        const button = document.createElement('button');
+        button.textContent = status;
+        button.disabled = adoption.status === status;
+        button.addEventListener('click', () =>
+          handleUpdate(adoption._id, status)
+        );
+        buttonContainer.appendChild(button);
+      });
+    } else {
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Cancelar solicitud';
+      deleteButton.addEventListener('click', () => handleDelete(adoption._id));
+      buttonContainer.appendChild(deleteButton);
+    }
+
     adoptionContainer.append(li);
   }
 

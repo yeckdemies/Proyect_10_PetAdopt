@@ -1,29 +1,15 @@
 // adoptionService.js
 const API_URL = 'http://localhost:3000/api/v1/adoptions';
 const TOKEN = localStorage.getItem('token');
+const HEADER = {
+  Authorization: `Bearer ${TOKEN}`,
+  'Content-Type': 'application/json'
+};
 
 export const fetchAdoptions = async () => {
   try {
     const response = await fetch(API_URL, {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching adoptions:', error);
-    return [];
-  }
-};
-
-export const fetchUserAdoptions = async (userid) => {
-  try {
-    const response = await fetch(`${API_URL}/getUserAdoptions/${userId}'`, {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-        'Content-Type': 'application/json'
-      }
+      headers: HEADER
     });
     return await response.json();
   } catch (error) {
@@ -34,12 +20,9 @@ export const fetchUserAdoptions = async (userid) => {
 
 export const updateAdoption = async (adoptionId, newStatus) => {
   try {
-    const response = await fetch(`${API_URL}/${adoptionId}`, {
+    const response = await fetch(`${API_URL}/editAdoption/${adoptionId}`, {
       method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-        'Content-Type': 'application/json'
-      },
+      headers: HEADER,
       body: JSON.stringify({ status: newStatus })
     });
     return response.ok;
@@ -51,12 +34,9 @@ export const updateAdoption = async (adoptionId, newStatus) => {
 
 export const deleteAdoption = async (adoptionId) => {
   try {
-    const response = await fetch(`${API_URL}/${adoptionId}`, {
+    const response = await fetch(`${API_URL}/deleteAdoption/${adoptionId}`, {
       method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-        'Content-Type': 'application/json'
-      }
+      headers: HEADER
     });
     return response.ok;
   } catch (error) {
