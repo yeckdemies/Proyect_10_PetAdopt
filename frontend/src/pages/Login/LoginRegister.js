@@ -1,3 +1,4 @@
+import { submitLogin, submitRegister } from '../../api/userService';
 import { Button } from '../../components/Button/Button';
 import { cerrarFormulario } from '../../utils/functions/tools';
 import './LoginRegister.css';
@@ -63,7 +64,7 @@ const Login = (elementoPadre) => {
 
   inputEmail.type = 'email';
   inputEmail.placeholder = 'Correo electrónico';
-  inputEmail.required = false; // Lo haremos opcional para evitar errores en login
+  inputEmail.required = false;
   inputEmail.classList.add('login-input', 'hidden');
 
   inputPassword.type = 'password';
@@ -128,71 +129,4 @@ const Login = (elementoPadre) => {
     acceder.textContent = 'Acceder';
     loginText.style.display = 'none';
   });
-};
-
-const submitLogin = async (userName, password, form) => {
-  const objetoFinal = JSON.stringify({
-    userName,
-    password
-  });
-
-  const opciones = {
-    method: 'POST',
-    body: objetoFinal,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const res = await fetch('http://localhost:3000/api/v1/users/login', opciones);
-
-  handleResponse(res, form);
-};
-
-const submitRegister = async (userName, email, password, form) => {
-  const objetoFinal = JSON.stringify({
-    userName,
-    email,
-    password
-  });
-
-  const opciones = {
-    method: 'POST',
-    body: objetoFinal,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const res = await fetch(
-    'http://localhost:3000/api/v1/users/register',
-    opciones
-  );
-
-  handleResponse(res, form);
-};
-
-const handleResponse = async (res, form) => {
-  if (res.status === 400) {
-    const pError = document.createElement('p');
-    pError.classList.add('error');
-    pError.textContent = 'Error, usuario o contraseña incorrectos';
-    pError.style.color = 'red';
-
-    form.append(pError);
-    return;
-  }
-
-  const pError = document.querySelector('.error');
-  if (pError) {
-    pError.remove();
-  }
-
-  const respuestaFinal = await res.json();
-
-  localStorage.setItem('token', respuestaFinal.token);
-  localStorage.setItem('user', JSON.stringify(respuestaFinal.user));
-
-  cerrarFormulario();
-  location.reload();
 };

@@ -1,4 +1,5 @@
-import { navigate, validateUser } from '../../utils/functions/tools';
+import { validateUser } from '../../api/userService';
+import { navigate } from '../../utils/functions/tools';
 import { routes } from '../../utils/routes/routes';
 import './Header.css';
 
