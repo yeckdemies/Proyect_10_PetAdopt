@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// Definición del esquema del usuario
 const userSchema = new mongoose.Schema(
   {
     userName: {

@@ -183,7 +183,7 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-const setFavourite = async (req, res) => {
+const setFavourite = async (req, res, next) => {
   try {
     const { petId } = req.params;
     const userId = req.user._id;
@@ -221,7 +221,7 @@ const setFavourite = async (req, res) => {
   }
 };
 
-const removeFavourite = async (req, res) => {
+const removeFavourite = async (req, res, next) => {
   try {
     const { petId } = req.params;
     const userId = req.user._id;

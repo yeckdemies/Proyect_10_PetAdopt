@@ -1,6 +1,6 @@
 const express = require('express');
 const {
-  getAllAdoption,
+  getAdoptions,
   registerAdoption,
   updateAdoption,
   deleteAdoption
@@ -10,9 +10,17 @@ const { isAdmin } = require('../../middlewares/role');
 
 const adoptionRouter = express.Router();
 
-adoptionRouter.get('/', [isAuth, isAdmin], getAllAdoption);
+adoptionRouter.get('/', [isAuth], getAdoptions);
 adoptionRouter.post('/registerAdoption', isAuth, registerAdoption);
-adoptionRouter.put('/editAdoption/:adoptionId', [isAuth, isAdmin], updateAdoption);
-adoptionRouter.delete('/deleteAdoption/:adoptionId', [isAuth, isAdmin], deleteAdoption);
+adoptionRouter.put(
+  '/editAdoption/:adoptionId',
+  [isAuth, isAdmin],
+  updateAdoption
+);
+adoptionRouter.delete(
+  '/deleteAdoption/:adoptionId',
+  [isAuth, isAdmin],
+  deleteAdoption
+);
 
 module.exports = adoptionRouter;

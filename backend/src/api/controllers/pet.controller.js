@@ -21,7 +21,7 @@ const getAllPet = async (req, res, next) => {
   }
 };
 
-const getAvailablePets = async (req, res) => {
+const getAvailablePets = async (req, res, next) => {
   try {
     const adoptedPets = await Adoption.distinct('pet');
 
@@ -35,7 +35,7 @@ const getAvailablePets = async (req, res) => {
   }
 };
 
-const registerPet = async (req, res) => {
+const registerPet = async (req, res, next) => {
   try {
     const { chip, name, age, sexo, size, type } = req.body;
 

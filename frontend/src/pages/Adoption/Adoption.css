@@ -1,0 +1,93 @@
+#adoptions {
+  padding: 20px;
+}
+
+#adoption-container {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.adoption-item {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.adoption-item:hover {
+  transform: scale(1.03);
+}
+
+.adoption-item p {
+  margin: 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.status-buttons button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease-in-out;
+  font-size: 0.9em;
+}
+
+.status-buttons button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.status-buttons button:not(:disabled):hover {
+  opacity: 0.8;
+}
+
+.status-buttons button:nth-child(1) {
+  background: #ffcc00;
+  color: #333;
+}
+
+.status-buttons button:nth-child(2) {
+  background: #4caf50;
+  color: white;
+}
+
+.status-buttons button:nth-child(3) {
+  background: #f44336;
+  color: white;
+}
+
+.status-buttons button:last-child {
+  background: #d9534f;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .adoption-item {
+    padding: 10px;
+  }
+
+  .status-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .status-buttons button {
+    width: 100%;
+  }
+}

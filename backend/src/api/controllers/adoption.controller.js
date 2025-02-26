@@ -2,13 +2,16 @@ const mongoose = require('mongoose');
 const Adoption = require('../models/adoption.model');
 const Pet = require('../models/pet.model');
 
-const getAllAdoption = async (req, res, next) => {
+const getAdoptions = async (req, res, next) => {
   try {
-    const adoptions = await Adoption.find().populate('user').populate('pet');
+    const userId = req.user._id;
+    const userRole = req.user.role;
 
-    if (!Adoption.length) {
-      return res.status(404).json({ message: 'No adoptions found' });
-    }
+    const query = userRole === 'admin' ? {} : { user: userId };
+
+    const adoptions = await Adoption.find(query)
+      .populate('user')
+      .populate('pet');
 
     return res.status(200).json(adoptions);
   } catch (error) {
@@ -18,7 +21,7 @@ const getAllAdoption = async (req, res, next) => {
   }
 };
 
-const registerAdoption = async (req, res) => {
+const registerAdoption = async (req, res, next) => {
   try {
     const { petId, comments } = req.body;
     const userId = req.user._id;
@@ -126,13 +129,19 @@ const deleteAdoption = async (req, res, next) => {
       return res.status(404).json({ error: 'Adoption not found' });
     }
 
-    return res
-      .status(200)
-      .json({ mmessage: 'Adoption deleted successfully', recipe: adoptionDeleted });
+    return res.status(200).json({
+      mmessage: 'Adoption deleted successfully',
+      recipe: adoptionDeleted
+    });
   } catch (error) {
     console.error('Error deleting Adoption:', error);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
-module.exports = { getAllAdoption, registerAdoption, updateAdoption, deleteAdoption };
+module.exports = {
+  getAdoptions,
+  registerAdoption,
+  updateAdoption,
+  deleteAdoption
+};
