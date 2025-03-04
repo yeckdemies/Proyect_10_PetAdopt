@@ -1,4 +1,3 @@
-// adoptionService.js
 const API_URL = 'http://localhost:3000/api/v1/adoptions';
 const TOKEN = localStorage.getItem('token');
 const HEADER = {
@@ -41,6 +40,25 @@ export const deleteAdoption = async (adoptionId) => {
     return response.ok;
   } catch (error) {
     console.error('Error deleting adoption:', error);
+    return false;
+  }
+};
+
+export const createAdoption = async (petId) => {
+  try {
+    const response = await fetch(`${API_URL}/registerAdoption`, {
+      method: 'POST',
+      headers: HEADER,
+      body: JSON.stringify({
+        petId,
+        comments: 'Solicitud de adopción'
+      })
+    });
+
+    const result = await response.json();
+    return response.ok ? result : false;
+  } catch (error) {
+    console.error('Error al solicitar adopción:', error);
     return false;
   }
 };

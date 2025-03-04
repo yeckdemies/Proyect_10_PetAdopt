@@ -6,12 +6,13 @@ export const navigate = (e, route) => {
   route.page();
 };
 
-
-
 export const cerrarFormulario = () => {
   const loginOverlay = document.querySelector('.login-overlay');
   if (loginOverlay) {
     loginOverlay.remove();
   }
-  navigate({ preventDefault: () => {} }, routes[0]);
+  navigate(
+    { preventDefault: () => {} },
+    routes.find((route) => route.name === 'Animales')
+  );
 };

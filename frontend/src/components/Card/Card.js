@@ -1,6 +1,9 @@
 import './Card.css';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { Button } from '../Button/Button';
+import { navigate } from '../../utils/functions/tools';
+import { routes } from '../../utils/routes/routes';
+import { createAdoption } from '../../api/adoptionService';
 
 export const createCard = async (pet) => {
   const card = document.createElement('div');
@@ -61,6 +64,40 @@ export const createCard = async (pet) => {
     const button = Button('Adoptar');
     button.classList.add('adopt-btn');
     buttonContainer.append(button);
+
+    button.addEventListener('click', async () => {
+      const USER = JSON.parse(localStorage.getItem('user'));
+      if (!USER) {
+        navigate(
+          { preventDefault: () => {} },
+          routes.find((route) => route.name === 'Login')
+        );
+        return;
+      }
+
+      try {
+        const response = await createAdoption(pet._id);
+        if (response) {
+          navigate(
+            { preventDefault: () => {} },
+            routes.find((route) => route.name === 'Adopciones')
+          );
+        } else {
+          alert('No se pudo completar la adopción.');
+          navigate(
+            { preventDefault: () => {} },
+            routes.find((route) => route.name === 'Animals')
+          );
+        }
+      } catch (error) {
+        console.error('Error en la adopción:', error);
+        alert('No se pudo completar la adopción.');
+        navigate(
+          { preventDefault: () => {} },
+          routes.find((route) => route.name === 'Animals')
+        );
+      }
+    });
   }
 
   if (pet.showFavorite) {

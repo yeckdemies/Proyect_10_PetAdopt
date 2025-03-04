@@ -31,7 +31,12 @@ export const Header = async () => {
   a.appendChild(img);
   logo.appendChild(a);
 
-  a.addEventListener('click', (e) => navigate(e, routes[0]));
+  a.addEventListener('click', (e) =>
+    navigate(
+      e,
+      routes.find((route) => route.name === 'Animales')
+    )
+  );
 
   const user = await validateUser();
   const isAuthenticated = !!user;

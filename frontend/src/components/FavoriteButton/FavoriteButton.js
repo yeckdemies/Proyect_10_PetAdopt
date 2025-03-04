@@ -3,6 +3,8 @@ import {
   removeFavorite,
   getCurrentUser
 } from '../../api/favoriteService';
+import { navigate } from '../../utils/functions/tools';
+import { routes } from '../../utils/routes/routes';
 import './FavoriteButton.css';
 
 export const FavoriteButton = async (pet) => {
@@ -39,23 +41,33 @@ export const FavoriteButton = async (pet) => {
     }
   };
 
-  button.addEventListener('click', async () => {
+  button.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const USER = JSON.parse(localStorage.getItem('user'));
+    if (!USER) {
+      navigate(
+        e,
+        routes.find((route) => route.name === 'Login')
+      );
+      return;
+    }
+
+    let result;
+
     if (button.classList.contains('active')) {
-      const result = await removeFavorite(pet._id);
-      if (result.success) {
-        updateButtonState(false);
-        console.log(result.message);
-      } else {
-        console.error(result.message);
-      }
+      result = await removeFavorite(pet._id);
     } else {
-      const result = await addFavorite(pet._id);
-      if (result.success) {
-        updateButtonState(true);
-        console.log(result.message);
-      } else {
-        console.error(result.message);
-      }
+      result = await addFavorite(pet._id);
+    }
+
+    if (result && result.success) {
+      updateButtonState(!button.classList.contains('active'));
+      console.log(result.message);
+    } else {
+      console.error(
+        result?.message || 'Error desconocido al actualizar favorito.'
+      );
     }
   });
 

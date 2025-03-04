@@ -1,9 +1,16 @@
+import { navigate } from '../utils/functions/tools';
+import { routes } from '../utils/routes/routes';
+
 const API_URL = 'http://localhost:3000/api/v1/users';
 
 export const addFavorite = async (petId) => {
   const token = localStorage.getItem('token');
-  if (!token) {
-    alert('Debes iniciar sesión para añadir mascotas a favoritos.');
+  const USER = JSON.parse(localStorage.getItem('user'));
+  if (!USER) {
+    navigate(
+      { preventDefault: () => {} },
+      routes.find((route) => route.name === 'Login')
+    );
     return;
   }
 
@@ -26,10 +33,6 @@ export const addFavorite = async (petId) => {
 
 export const removeFavorite = async (petId) => {
   const token = localStorage.getItem('token');
-  if (!token) {
-    alert('Debes iniciar sesión para eliminar mascotas de favoritos.');
-    return;
-  }
 
   try {
     const response = await fetch(`${API_URL}/removeFavourite/${petId}`, {
