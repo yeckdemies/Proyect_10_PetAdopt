@@ -1,5 +1,4 @@
 import './Card.css';
-
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { Button } from '../Button/Button';
 
@@ -7,16 +6,16 @@ export const createCard = async (pet) => {
   const card = document.createElement('div');
   card.classList.add('card');
 
-  const div = document.createElement('div');
-  div.classList.add('favorite-container');
-
-  card.appendChild(div);
+  if (pet.showFavorite) {
+    const div = document.createElement('div');
+    div.classList.add('favorite-container');
+    card.appendChild(div);
+  }
 
   const img = document.createElement('img');
   img.src = pet.imageUrl;
   img.alt = pet.name;
   img.classList.add('card-img');
-
   card.appendChild(img);
 
   const cardBody = document.createElement('div');
@@ -53,18 +52,22 @@ export const createCard = async (pet) => {
   p5.textContent = `Especie: ${pet.type}`;
   cardBody.appendChild(p5);
 
-  const div2 = document.createElement('div');
-  div2.classList.add('button-container');
-  cardBody.appendChild(div2);
+  if (pet.showAdoptButton) {
+    const div2 = document.createElement('div');
+    div2.classList.add('button-container');
+    cardBody.appendChild(div2);
 
-  const buttonContainer = card.querySelector('.button-container');
-  const button = Button('Adoptar');
-  button.classList.add('adopt-btn');
-  buttonContainer.append(button);
+    const buttonContainer = card.querySelector('.button-container');
+    const button = Button('Adoptar');
+    button.classList.add('adopt-btn');
+    buttonContainer.append(button);
+  }
 
-  const favoriteContainer = card.querySelector('.favorite-container');
-  const favoriteButton = await FavoriteButton(pet);
-  favoriteContainer.append(favoriteButton);
+  if (pet.showFavorite) {
+    const favoriteContainer = card.querySelector('.favorite-container');
+    const favoriteButton = await FavoriteButton(pet);
+    favoriteContainer.append(favoriteButton);
+  }
 
   return card;
 };
