@@ -13,7 +13,6 @@ const USER_ID = USER?._id;
 
 export const AdoptionList = async (filter = 'Pending') => {
   showLoader();
-
   const main = document.querySelector('main');
   main.innerHTML = '';
 
@@ -108,7 +107,7 @@ export const AdoptionList = async (filter = 'Pending') => {
         if (adoption.status === 'Pending') {
           const cancelButton = document.createElement('button');
           cancelButton.textContent = 'Cancelar solicitud';
-          cancelButton.classList.add('cancel-btn');
+          cancelButton.classList.add('cancel-adoption-btn');
           cancelButton.addEventListener('click', async () => {
             await deleteAdoption(adoption._id);
             AdoptionList();

@@ -1,6 +1,11 @@
 import './Pets.css';
 import { createCard } from '../../components/Card/Card';
 import { hideLoader, showLoader } from '../../components/Loader/Loader';
+import { fetchAvailablePets } from '../../api/petsService';
+
+const USER = JSON.parse(localStorage.getItem('user'));
+const USER_ROLE = USER?.role;
+const IS_LOGGED_IN = USER !== null;
 
 export const Pets = async () => {
   showLoader();
@@ -12,24 +17,17 @@ export const Pets = async () => {
 
   const ul = document.createElement('ul');
   ul.id = 'petscontainer';
-
   container.appendChild(ul);
 
-  const petsData = await fetch(
-    'http://localhost:3000/api/v1/pets/getAvailablePets/'
-  );
-  const petsResponse = await petsData.json();
-
+  const pets = await fetchAvailablePets();
   hideLoader();
 
-  if (!petsResponse || !petsResponse.availablePets) {
-    throw new Error('Invalid API response: availablePets is missing');
+  if (!pets.length) {
+    console.error('No pets found or invalid API response');
+    return;
   }
 
-  const pets = petsResponse.availablePets;
-
   const petsContainer = container.querySelector('#petscontainer');
-
   petsContainer.innerHTML = '';
 
   for (const pet of pets) {
@@ -37,8 +35,9 @@ export const Pets = async () => {
 
     const card = await createCard({
       ...pet,
-      showAdoptButton: true,
-      showFavorite: true
+      showAdoptButton: USER_ROLE !== 'admin',
+      showFavorite: USER_ROLE !== 'admin',
+      isLoggedIn: IS_LOGGED_IN
     });
 
     li.appendChild(card);

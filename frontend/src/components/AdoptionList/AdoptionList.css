@@ -67,7 +67,6 @@
   color: white;
 }
 
-/* Botón deshabilitado */
 .disabled-btn {
   background: #ccc !important;
   color: #666 !important;
@@ -75,23 +74,24 @@
   opacity: 0.7;
 }
 
-/* Botón de cancelar solicitud */
-.cancel-btn {
+.cancel-adoption-btn {
   background: #d9534f;
   color: white;
-  padding: 8px 12px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.2s ease-in-out;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 1.1em;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  margin-top: 15px;
 }
 
-.cancel-btn:hover {
+.cancel-adoption-btn:hover {
   background: #c9302c;
 }
 
-/* Texto de estado */
 .adoption-status {
   font-size: 1.1em;
   font-weight: bold;
@@ -99,7 +99,6 @@
   text-align: center;
 }
 
-/* Estado de la adopción */
 .pending-status {
   color: #ffcc00;
 }
@@ -112,7 +111,6 @@
   color: #f44336;
 }
 
-/* Mensaje cuando no hay elementos */
 .empty-message {
   width: 100%;
   text-align: center;
@@ -122,7 +120,6 @@
   padding: 50px 0;
 }
 
-/* Diseño responsive */
 @media (max-width: 768px) {
   .filter-container {
     flex-direction: column;
