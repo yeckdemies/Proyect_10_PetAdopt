@@ -70,6 +70,24 @@
   padding: 20px;
 }
 
+.delete-pet-btn {
+  background: #d9534f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 1.1em;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.delete-pet-btn:hover {
+  background: #c9302c;
+}
+
 @media (max-width: 768px) {
   #petscontainer {
     flex-direction: column;

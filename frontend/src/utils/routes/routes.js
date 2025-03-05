@@ -1,6 +1,7 @@
 import { Adoption } from '../../pages/Adoption/Adoption';
 import { LoginRegister } from '../../pages/Login/LoginRegister';
 import { Pets } from '../../pages/Pets/Pets';
+import { RegisterPet } from '../../pages/RegisterPets/RegisterPet';
 
 export const routes = [
   {
@@ -17,5 +18,10 @@ export const routes = [
     path: '/Login',
     name: 'Login',
     page: LoginRegister
+  },
+  {
+    path: '/RegisterPet',
+    name: 'Registrar Mascota',
+    page: RegisterPet
   }
 ];

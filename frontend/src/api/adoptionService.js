@@ -1,3 +1,5 @@
+import { showLoader } from '../components/Loader/Loader';
+
 const API_URL = 'http://localhost:3000/api/v1/adoptions';
 const TOKEN = localStorage.getItem('token');
 const HEADER = {
@@ -19,6 +21,7 @@ export const fetchAdoptions = async () => {
 
 export const updateAdoption = async (adoptionId, newStatus) => {
   try {
+    showLoader();
     const response = await fetch(`${API_URL}/editAdoption/${adoptionId}`, {
       method: 'PUT',
       headers: HEADER,
@@ -33,6 +36,7 @@ export const updateAdoption = async (adoptionId, newStatus) => {
 
 export const deleteAdoption = async (adoptionId) => {
   try {
+    showLoader();
     const response = await fetch(`${API_URL}/deleteAdoption/${adoptionId}`, {
       method: 'DELETE',
       headers: HEADER
@@ -46,6 +50,7 @@ export const deleteAdoption = async (adoptionId) => {
 
 export const createAdoption = async (petId) => {
   try {
+    showLoader();
     const response = await fetch(`${API_URL}/registerAdoption`, {
       method: 'POST',
       headers: HEADER,

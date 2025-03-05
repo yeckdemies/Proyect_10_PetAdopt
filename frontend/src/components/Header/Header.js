@@ -40,12 +40,17 @@ export const Header = async () => {
 
   const user = await validateUser();
   const isAuthenticated = !!user;
+  const isAdmin = user?.role === 'admin'; // ✅ Verificar si el usuario es administrador
 
   userContainer.className = 'user-container';
 
+  // 🔹 **Filtrar rutas para que "Registrar Mascota" solo aparezca si es admin**
   const visibleRoutes = routes.filter((route) => {
     if (!isAuthenticated) {
       return route.name === 'Animales' || route.name === 'Login';
+    }
+    if (!isAdmin && route.name === 'Registrar Mascota') {
+      return false; // ❌ Ocultar "Registrar Mascota" si el usuario NO es admin
     }
     return route.name !== 'Login';
   });
@@ -74,7 +79,6 @@ export const Header = async () => {
     logoutBtn.addEventListener('click', () => {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-
       location.reload();
     });
 

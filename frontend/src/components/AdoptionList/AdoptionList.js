@@ -5,6 +5,7 @@ import {
 } from '../../api/adoptionService';
 import { createCard } from '../Card/Card';
 import { showLoader, hideLoader } from '../Loader/Loader';
+import { deletePet } from '../../api/petsService';
 import './AdoptionList.css';
 
 const USER = JSON.parse(localStorage.getItem('user'));
@@ -76,6 +77,7 @@ export const AdoptionList = async (filter = 'Pending') => {
       };
 
       const card = await createCard(petData);
+      hideLoader();
       const buttonContainer = document.createElement('div');
       buttonContainer.classList.add('button-container');
 

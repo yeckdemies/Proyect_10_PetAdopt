@@ -4,10 +4,15 @@ import { Button } from '../Button/Button';
 import { navigate } from '../../utils/functions/tools';
 import { routes } from '../../utils/routes/routes';
 import { createAdoption } from '../../api/adoptionService';
+import { deletePet } from '../../api/petsService';
+import { hideLoader } from '../Loader/Loader';
 
 export const createCard = async (pet) => {
   const card = document.createElement('div');
   card.classList.add('card');
+
+  const USER = JSON.parse(localStorage.getItem('user'));
+  const isAdmin = USER?.role === 'admin';
 
   if (pet.showFavorite) {
     const div = document.createElement('div');
@@ -55,18 +60,36 @@ export const createCard = async (pet) => {
   p5.textContent = `Especie: ${pet.type}`;
   cardBody.appendChild(p5);
 
-  if (pet.showAdoptButton) {
-    const div2 = document.createElement('div');
-    div2.classList.add('button-container');
-    cardBody.appendChild(div2);
+  const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('button-container');
+  cardBody.appendChild(buttonContainer);
 
-    const buttonContainer = card.querySelector('.button-container');
-    const button = Button('Adoptar');
-    button.classList.add('adopt-btn');
-    buttonContainer.append(button);
+  if (isAdmin) {
+    const deleteButton = Button('Eliminar Mascota');
+    deleteButton.classList.add('delete-pet-btn');
 
-    button.addEventListener('click', async () => {
-      const USER = JSON.parse(localStorage.getItem('user'));
+    deleteButton.addEventListener('click', async () => {
+      const confirmDelete = confirm(
+        `¿Seguro que quieres eliminar a ${pet.name}?`
+      );
+      if (!confirmDelete) return;
+
+      const deleted = await deletePet(pet._id);
+      hideLoader();
+      if (deleted) {
+        alert(`${pet.name} ha sido eliminada.`);
+        location.reload();
+      } else {
+        alert('Hubo un error al eliminar la mascota.');
+      }
+    });
+
+    buttonContainer.append(deleteButton);
+  } else if (pet.showAdoptButton) {
+    const adoptButton = Button('Adoptar');
+    adoptButton.classList.add('adopt-btn');
+
+    adoptButton.addEventListener('click', async () => {
       if (!USER) {
         navigate(
           { preventDefault: () => {} },
@@ -77,6 +100,7 @@ export const createCard = async (pet) => {
 
       try {
         const response = await createAdoption(pet._id);
+        hideLoader();
         if (response) {
           navigate(
             { preventDefault: () => {} },
@@ -86,7 +110,7 @@ export const createCard = async (pet) => {
           alert('No se pudo completar la adopción.');
           navigate(
             { preventDefault: () => {} },
-            routes.find((route) => route.name === 'Animals')
+            routes.find((route) => route.name === 'Animales')
           );
         }
       } catch (error) {
@@ -94,10 +118,12 @@ export const createCard = async (pet) => {
         alert('No se pudo completar la adopción.');
         navigate(
           { preventDefault: () => {} },
-          routes.find((route) => route.name === 'Animals')
+          routes.find((route) => route.name === 'Animales')
         );
       }
     });
+
+    buttonContainer.append(adoptButton);
   }
 
   if (pet.showFavorite) {
