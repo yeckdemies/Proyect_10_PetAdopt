@@ -65,3 +65,41 @@ export const deletePet = async (petId) => {
     return false;
   }
 };
+
+export const getPetById = async (petId) => {
+  try {
+    const response = await fetch(`${API_URL}/${petId}`, {
+      headers: HEADER
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error fetching pet: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching pet by ID:', error);
+    return null;
+  }
+};
+
+export const updatePet = async (petId, formData) => {
+  try {
+    const response = await fetch(`${API_URL}/editPet/${petId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      },
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error updating pet: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating pet:', error);
+    return null;
+  }
+};

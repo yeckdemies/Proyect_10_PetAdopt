@@ -1,4 +1,5 @@
 import { Adoption } from '../../pages/Adoption/Adoption';
+import { EditPet } from '../../pages/EditPet/EditPet';
 import { LoginRegister } from '../../pages/Login/LoginRegister';
 import { Pets } from '../../pages/Pets/Pets';
 import { RegisterPet } from '../../pages/RegisterPets/RegisterPet';
@@ -23,5 +24,10 @@ export const routes = [
     path: '/RegisterPet',
     name: 'Registrar Mascota',
     page: RegisterPet
+  },
+  {
+    path: '/editPet/:id',
+    name: 'Editar Mascota',
+    page: (id) => EditPet(id)
   }
 ];

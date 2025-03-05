@@ -1,4 +1,4 @@
-#register-pet {
+.pet-form-container {
   padding: 20px;
   max-width: 400px;
   margin: auto;
@@ -8,10 +8,16 @@
   text-align: center;
 }
 
-#register-pet h2 {
+.pet-form-container h2 {
   font-size: 1.5em;
   margin-bottom: 15px;
   color: #333;
+}
+
+.pet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .form-group {
@@ -32,6 +38,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1em;
+  width: 100%;
 }
 
 .submit-btn {
@@ -44,8 +51,21 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+  transition: background 0.3s ease-in-out;
 }
 
 .submit-btn:hover {
   background: #388e3c;
+}
+
+@media (max-width: 480px) {
+  .pet-form-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .submit-btn {
+    font-size: 1em;
+    padding: 8px;
+  }
 }

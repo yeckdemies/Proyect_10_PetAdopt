@@ -7,12 +7,14 @@ const {
   getAvailablePets,
   registerPet,
   updatePet,
-  deletePet
+  deletePet,
+  getPetById
 } = require('../controllers/pet.controller');
 const petRouter = express.Router();
 
 petRouter.get('/', [isAuth], getAllPet);
 petRouter.get('/getAvailablePets', getAvailablePets);
+petRouter.get('/:petId', getPetById);
 petRouter.post(
   '/registerPet',
   [isAuth, isAdmin, uploadPet.single('imageUrl')],

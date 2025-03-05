@@ -6,6 +6,7 @@ import { routes } from '../../utils/routes/routes';
 import { createAdoption } from '../../api/adoptionService';
 import { deletePet } from '../../api/petsService';
 import { hideLoader } from '../Loader/Loader';
+import { EditPet } from '../../pages/EditPet/EditPet';
 
 export const createCard = async (pet) => {
   const card = document.createElement('div');
@@ -13,6 +14,7 @@ export const createCard = async (pet) => {
 
   const USER = JSON.parse(localStorage.getItem('user'));
   const isAdmin = USER?.role === 'admin';
+  const isLogged = !!USER;
 
   if (pet.showFavorite) {
     const div = document.createElement('div');
@@ -65,10 +67,21 @@ export const createCard = async (pet) => {
   cardBody.appendChild(buttonContainer);
 
   if (isAdmin) {
+    card.classList.add('clickable');
+    card.addEventListener('click', (e) => {
+      if (!e.target.closest('.button-container')) {
+        navigate(
+          { preventDefault: () => {} },
+          { path: `/editPet/${pet._id}`, page: () => EditPet(pet._id) }
+        );
+      }
+    });
+
     const deleteButton = Button('Eliminar Mascota');
     deleteButton.classList.add('delete-pet-btn');
 
-    deleteButton.addEventListener('click', async () => {
+    deleteButton.addEventListener('click', async (e) => {
+      e.stopPropagation(); // ✅ Evita que el clic en eliminar active la edición
       const confirmDelete = confirm(
         `¿Seguro que quieres eliminar a ${pet.name}?`
       );
@@ -85,12 +98,15 @@ export const createCard = async (pet) => {
     });
 
     buttonContainer.append(deleteButton);
-  } else if (pet.showAdoptButton) {
+  }
+
+  if (!isAdmin && pet.showAdoptButton) {
     const adoptButton = Button('Adoptar');
     adoptButton.classList.add('adopt-btn');
 
-    adoptButton.addEventListener('click', async () => {
-      if (!USER) {
+    adoptButton.addEventListener('click', async (e) => {
+      e.stopPropagation(); // ✅ Evita que el clic en adoptar active la edición
+      if (!isLogged) {
         navigate(
           { preventDefault: () => {} },
           routes.find((route) => route.name === 'Login')

@@ -211,10 +211,33 @@ const deletePet = async (req, res, next) => {
   }
 };
 
+const getPetById = async (req, res) => {
+  try {
+    const { petId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(petId)) {
+      return res.status(400).json({ message: 'Invalid pet ID' });
+    }
+
+    const pet = await Pet.findById(petId);
+
+    if (!pet) {
+      return res.status(404).json({ message: 'Pet not found' });
+    }
+
+    return res.status(200).json(pet);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error fetching pet', error: error.message });
+  }
+};
+
 module.exports = {
   getAllPet,
   getAvailablePets,
   registerPet,
   updatePet,
-  deletePet
+  deletePet,
+  getPetById
 };
