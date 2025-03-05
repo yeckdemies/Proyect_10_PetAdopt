@@ -71,7 +71,6 @@ export const RegisterPet = () => {
     input.id = field.name;
     input.name = field.name;
 
-    // Si el campo es obligatorio, añadimos el atributo required
     if (field.required) {
       input.setAttribute('required', 'true');
     }

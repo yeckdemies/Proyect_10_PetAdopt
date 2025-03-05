@@ -118,7 +118,7 @@ const updateAdoption = async (req, res, next) => {
 const deleteAdoption = async (req, res, next) => {
   try {
     const { adoptionId } = req.params;
-    const userId = req.user.id; // Usuario autenticado
+    const userId = req.user.id;
 
     if (!mongoose.Types.ObjectId.isValid(adoptionId)) {
       return res.status(400).json({ error: 'Invalid Adoption ID format' });
