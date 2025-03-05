@@ -10,13 +10,13 @@ export const RegisterPet = () => {
   const handleSubmit = async (formData) => {
     const result = await registerPet(formData);
     if (result) {
-      alert('Mascota registrada correctamente');
+      ShowAlert('Mascota registrada correctamente.', 'success', 3000, true);
       navigate(
         { preventDefault: () => {} },
         routes.find((route) => route.name === 'Animales')
       );
     } else {
-      alert('Hubo un error al registrar la mascota');
+      ShowAlert('Hubo un error al registrar la mascota.', 'error', 3000, true);
     }
   };
 

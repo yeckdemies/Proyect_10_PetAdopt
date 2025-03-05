@@ -1,6 +1,7 @@
 import { validateUser } from '../../api/userService';
 import { navigate } from '../../utils/functions/tools';
 import { routes } from '../../utils/routes/routes';
+import { checkStoredAlert } from '../Alert/Alert';
 import './Header.css';
 
 export const Header = async () => {
@@ -10,6 +11,8 @@ export const Header = async () => {
   const ul = document.createElement('ul');
   const button = document.createElement('button');
   const userContainer = document.createElement('div');
+
+  checkStoredAlert();
 
   ul.className = 'nav-menu';
   button.className = 'menu-toggle';

@@ -1,7 +1,8 @@
 import { PetForm } from '../../components/PetForm/PetForm';
 import { routes } from '../../utils/routes/routes';
 import { navigate } from '../../utils/functions/tools';
-import { getPetById, updatePet } from '../../api/petsService'; // ✅ Importar updatePet
+import { getPetById, updatePet } from '../../api/petsService';
+import { ShowAlert } from '../../components/Alert/Alert';
 
 export const EditPet = async (petId) => {
   const main = document.querySelector('main');
@@ -9,7 +10,7 @@ export const EditPet = async (petId) => {
 
   const petData = await getPetById(petId);
   if (!petData) {
-    alert('No se encontró la mascota.');
+    ShowAlert('No se encontró la mascota.', 'error', 3000, true);
     navigate(
       { preventDefault: () => {} },
       routes.find((route) => route.name === 'Animales')
@@ -20,13 +21,13 @@ export const EditPet = async (petId) => {
   const handleSubmit = async (formData) => {
     const updated = await updatePet(petId, formData);
     if (updated) {
-      alert('Mascota actualizada correctamente.');
+      ShowAlert('Mascota actualizada correctamente.', 'success', 3000, true);
       navigate(
         { preventDefault: () => {} },
         routes.find((route) => route.name === 'Animales')
       );
     } else {
-      alert('Error al actualizar la mascota.');
+      ShowAlert('Error al actualizar la mascota.', 'error', 3000, true);
     }
   };
 

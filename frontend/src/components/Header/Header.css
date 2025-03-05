@@ -87,15 +87,15 @@ nav {
   }
 
   .user-container {
-    flex-direction: column; /* Apilar elementos en móviles */
-    align-items: flex-end; /* Alinear a la derecha */
+    flex-direction: column;
+    align-items: flex-end;
   }
 
   .welcome-text {
-    font-size: 12px; /* Reducir tamaño en móviles */
+    font-size: 12px;
   }
 
   .logout-button {
-    font-size: 10px; /* Hacer el botón aún más discreto */
+    font-size: 10px;
   }
 }

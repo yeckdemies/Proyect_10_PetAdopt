@@ -7,6 +7,7 @@ import { createAdoption } from '../../api/adoptionService';
 import { deletePet } from '../../api/petsService';
 import { hideLoader } from '../Loader/Loader';
 import { EditPet } from '../../pages/EditPet/EditPet';
+import { ShowAlert } from '../Alert/Alert';
 
 export const createCard = async (pet) => {
   const card = document.createElement('div');
@@ -81,7 +82,7 @@ export const createCard = async (pet) => {
     deleteButton.classList.add('delete-pet-btn');
 
     deleteButton.addEventListener('click', async (e) => {
-      e.stopPropagation(); // ✅ Evita que el clic en eliminar active la edición
+      e.stopPropagation();
       const confirmDelete = confirm(
         `¿Seguro que quieres eliminar a ${pet.name}?`
       );
@@ -90,10 +91,15 @@ export const createCard = async (pet) => {
       const deleted = await deletePet(pet._id);
       hideLoader();
       if (deleted) {
-        alert(`${pet.name} ha sido eliminada.`);
+        ShowAlert(`${pet.name} ha sido eliminada.`, 'success', 3000, true);
         location.reload();
       } else {
-        alert('Hubo un error al eliminar la mascota.');
+        ShowAlert(
+          `La mascota ${pet.name} no ha sido eliminada.`,
+          'error',
+          3000,
+          true
+        );
       }
     });
 
@@ -105,7 +111,7 @@ export const createCard = async (pet) => {
     adoptButton.classList.add('adopt-btn');
 
     adoptButton.addEventListener('click', async (e) => {
-      e.stopPropagation(); // ✅ Evita que el clic en adoptar active la edición
+      e.stopPropagation();
       if (!isLogged) {
         navigate(
           { preventDefault: () => {} },
@@ -123,7 +129,7 @@ export const createCard = async (pet) => {
             routes.find((route) => route.name === 'Adopciones')
           );
         } else {
-          alert('No se pudo completar la adopción.');
+          ShowAlert('No se pudo completar la adopción.', 'error', 3000, true);
           navigate(
             { preventDefault: () => {} },
             routes.find((route) => route.name === 'Animales')
@@ -131,7 +137,7 @@ export const createCard = async (pet) => {
         }
       } catch (error) {
         console.error('Error en la adopción:', error);
-        alert('No se pudo completar la adopción.');
+        ShowAlert('No se pudo completar la adopción.', 'error', 3000, true);
         navigate(
           { preventDefault: () => {} },
           routes.find((route) => route.name === 'Animales')
