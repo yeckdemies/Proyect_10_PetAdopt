@@ -23,15 +23,18 @@ const getAllPet = async (req, res, next) => {
 
 const getAvailablePets = async (req, res, next) => {
   try {
-    const adoptedPets = await Adoption.distinct('pet');
+    const activeAdoptions = await Adoption.find({
+      status: { $ne: 'Rejected' }
+    }).distinct('pet');
 
-    const availablePets = await Pet.find({ _id: { $nin: adoptedPets } });
+    const availablePets = await Pet.find({ _id: { $nin: activeAdoptions } });
 
     return res.status(200).json({ availablePets });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Error fetching available pets', error: error.message });
+    return res.status(500).json({
+      message: 'Error fetching available pets',
+      error: error.message
+    });
   }
 };
 

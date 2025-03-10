@@ -73,7 +73,8 @@ export const AdoptionList = async (filter = 'Pending') => {
         size: adoption.pet.size || 'No definido',
         type: adoption.pet.type,
         showFavorite: false,
-        showAdoptButton: false
+        showAdoptButton: false,
+        showDeleteButton: false
       };
 
       const card = await createCard(petData);

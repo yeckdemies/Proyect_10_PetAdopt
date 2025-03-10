@@ -67,7 +67,7 @@ export const createCard = async (pet) => {
   buttonContainer.classList.add('button-container');
   cardBody.appendChild(buttonContainer);
 
-  if (isAdmin) {
+  if (isAdmin && pet.showDeleteButton) {
     card.classList.add('clickable');
     card.addEventListener('click', (e) => {
       if (!e.target.closest('.button-container')) {
