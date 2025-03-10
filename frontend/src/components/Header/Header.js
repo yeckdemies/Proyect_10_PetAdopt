@@ -54,7 +54,7 @@ export const Header = async () => {
     if (!isAdmin && route.name === 'Registrar Mascota') {
       return false;
     }
-    if (!isAdmin && route.name === 'Editar Mascota') {
+    if (route.name === 'Editar Mascota') {
       return false;
     }
     return route.name !== 'Login';

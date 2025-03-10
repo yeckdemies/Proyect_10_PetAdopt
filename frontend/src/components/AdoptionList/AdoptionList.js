@@ -7,6 +7,7 @@ import { createCard } from '../Card/Card';
 import { showLoader, hideLoader } from '../Loader/Loader';
 import { deletePet } from '../../api/petsService';
 import './AdoptionList.css';
+import { PageTitle } from '../PageTitle/PageTitle';
 
 const USER = JSON.parse(localStorage.getItem('user'));
 const USER_ROLE = USER?.role;
@@ -17,10 +18,18 @@ export const AdoptionList = async (filter = 'Pending') => {
   const main = document.querySelector('main');
   main.innerHTML = '';
 
+  if (USER_ROLE !== 'admin') {
+    const titleComponent = PageTitle('Mis Solicitudes de Adopción');
+    main.appendChild(titleComponent);
+  }
+
   const container = document.createElement('section');
   container.id = 'adoptions';
 
   if (USER_ROLE === 'admin') {
+    const titleComponent = PageTitle('Solicitudes de Adopción');
+    main.appendChild(titleComponent);
+
     const filterContainer = document.createElement('div');
     filterContainer.classList.add('filter-container');
 

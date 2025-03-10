@@ -1,15 +1,26 @@
 import './PetForm.css';
 import { routes } from '../../utils/routes/routes';
 import { navigate } from '../../utils/functions/tools';
+import { PageTitle } from '../PageTitle/PageTitle';
 
 export const PetForm = ({ mode, petData = {}, onSubmit }) => {
+  const main = document.querySelector('main');
+  main.innerHTML = '';
   const formContainer = document.createElement('section');
   formContainer.classList.add('pet-form-container');
 
-  const title = document.createElement('h2');
+  /*const title = document.createElement('h2');
   title.textContent =
     mode === 'edit' ? 'Editar Mascota' : 'Registrar Nueva Mascota';
-  formContainer.appendChild(title);
+  formContainer.appendChild(title);*/
+
+  if (mode === 'edit') {
+    const titleComponent = PageTitle('Editar Mascota');
+    main.appendChild(titleComponent);
+  } else {
+    const titleComponent = PageTitle('Registrar Nueva Mascota');
+    main.appendChild(titleComponent);
+  }
 
   const form = document.createElement('form');
   form.classList.add('pet-form');

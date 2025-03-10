@@ -2,6 +2,7 @@ import { PetForm } from '../../components/PetForm/PetForm';
 import { registerPet } from '../../api/petsService';
 import { routes } from '../../utils/routes/routes';
 import { navigate } from '../../utils/functions/tools';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
 
 export const RegisterPet = () => {
   const main = document.querySelector('main');
