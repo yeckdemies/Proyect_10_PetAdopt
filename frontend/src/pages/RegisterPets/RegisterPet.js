@@ -3,6 +3,7 @@ import { registerPet } from '../../api/petsService';
 import { routes } from '../../utils/routes/routes';
 import { navigate } from '../../utils/functions/tools';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
+import { ShowAlert } from '../../components/Alert/Alert';
 
 export const RegisterPet = () => {
   const main = document.querySelector('main');
