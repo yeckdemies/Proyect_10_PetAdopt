@@ -9,7 +9,6 @@ const USER_ROLE = USER?.role;
 const IS_LOGGED_IN = USER !== null;
 
 export const Pets = async () => {
-  showLoader();
   const main = document.querySelector('main');
   main.innerHTML = '';
 
@@ -23,8 +22,8 @@ export const Pets = async () => {
   ul.id = 'petscontainer';
   container.appendChild(ul);
 
+  showLoader();
   const pets = await fetchAvailablePets();
-  hideLoader();
 
   if (!pets.length) {
     console.error('No pets found or invalid API response');
@@ -49,5 +48,6 @@ export const Pets = async () => {
     petsContainer.append(li);
   }
 
+  hideLoader();
   main.append(container);
 };

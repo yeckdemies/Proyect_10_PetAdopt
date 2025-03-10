@@ -27,7 +27,6 @@ export const fetchAvailablePets = async () => {
 
 export const registerPet = async (formData) => {
   try {
-    showLoader();
     const response = await fetch(`${API_URL}/registerPet`, {
       method: 'POST',
       headers: HEADER,

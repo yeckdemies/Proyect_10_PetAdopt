@@ -7,6 +7,7 @@ import './Header.css';
 export const Header = async () => {
   const header = document.createElement('header');
   const logo = document.createElement('div');
+  const title = document.createElement('span');
   const nav = document.createElement('nav');
   const ul = document.createElement('ul');
   const button = document.createElement('button');
@@ -33,6 +34,11 @@ export const Header = async () => {
   a.href = routes[0].path;
   a.appendChild(img);
   logo.appendChild(a);
+
+  // Añadir el título al lado del logo
+  title.className = 'logo-title';
+  title.textContent = 'Pet Adopt';
+  logo.appendChild(title);
 
   a.addEventListener('click', (e) =>
     navigate(

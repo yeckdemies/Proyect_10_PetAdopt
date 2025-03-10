@@ -12,10 +12,6 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.page-title-container:hover {
-  transform: scale(1.02);
-}
-
 .page-title {
   font-size: 1.8em;
   font-weight: bold;

@@ -9,11 +9,6 @@ export const PetForm = ({ mode, petData = {}, onSubmit }) => {
   const formContainer = document.createElement('section');
   formContainer.classList.add('pet-form-container');
 
-  /*const title = document.createElement('h2');
-  title.textContent =
-    mode === 'edit' ? 'Editar Mascota' : 'Registrar Nueva Mascota';
-  formContainer.appendChild(title);*/
-
   if (mode === 'edit') {
     const titleComponent = PageTitle('Editar Mascota');
     main.appendChild(titleComponent);
