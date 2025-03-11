@@ -31,13 +31,6 @@
   justify-content: center;
 }
 
-#favourites-container p {
-  font-size: 18px;
-  color: var(--text-color);
-  text-align: center;
-  margin-top: 20px;
-}
-
 .nofavourites-message {
   font-size: 18px;
   color: var(--secondary-text-color);
