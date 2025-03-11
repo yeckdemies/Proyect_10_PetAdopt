@@ -1,12 +1,17 @@
 #adoption-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: left;
+  gap: var(--gap-size);
+  justify-content: center;
   align-items: flex-start;
-  min-height: 300px;
+  padding: 20px;
+}
+
+#adoptions {
   width: 100%;
-  padding-top: 90px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .filter-container {
