@@ -26,9 +26,11 @@ export const Favourites = async () => {
   const favouritePets = await getUserFavourites();
 
   if (!favouritePets.length) {
-    const noFavouritesMessage = document.createElement('p');
-    noFavouritesMessage.textContent = 'No tienes mascotas favoritas.';
-    container.appendChild(noFavouritesMessage);
+    const emptyMessage = document.createElement('p');
+    emptyMessage.textContent =
+      'No hay adopciones disponibles para este filtro.';
+    emptyMessage.classList.add('empty-message');
+    container.appendChild(emptyMessage);
   } else {
     const favouritesContainer = container.querySelector(
       '#favourites-container'
