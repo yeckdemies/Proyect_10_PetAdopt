@@ -3,6 +3,7 @@ import { EditPet } from '../../pages/EditPet/EditPet';
 import { LoginRegister } from '../../pages/Login/LoginRegister';
 import { Pets } from '../../pages/Pets/Pets';
 import { RegisterPet } from '../../pages/RegisterPets/RegisterPet';
+import { Favourites } from '../../pages/Favourites/Favourites';
 
 export const routes = [
   {
@@ -29,5 +30,10 @@ export const routes = [
     path: '/editPet/:id',
     name: 'Editar Mascota',
     page: (id) => EditPet(id)
+  },
+  {
+    path: '/Favourites',
+    name: 'Favoritos',
+    page: Favourites
   }
 ];

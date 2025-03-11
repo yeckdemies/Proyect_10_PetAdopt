@@ -2,7 +2,7 @@ import {
   addFavorite,
   removeFavorite,
   getCurrentUser
-} from '../../api/favoriteService';
+} from '../../api/favouriteService';
 import { navigate } from '../../utils/functions/tools';
 import { routes } from '../../utils/routes/routes';
 import './FavoriteButton.css';

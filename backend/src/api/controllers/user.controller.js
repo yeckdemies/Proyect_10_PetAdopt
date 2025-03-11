@@ -253,6 +253,25 @@ const removeFavourite = async (req, res, next) => {
   }
 };
 
+const getFavourites = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+
+    const user = await User.findById(userId).populate('favourites');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.status(200).json({ favourites: user.favourites });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Error fetching favourites',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getAllUser,
   registerUser,
@@ -261,5 +280,6 @@ module.exports = {
   getCurrentUser,
   deleteUser,
   setFavourite,
-  removeFavourite
+  removeFavourite,
+  getFavourites
 };

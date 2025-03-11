@@ -100,3 +100,26 @@ export const validateUser = async () => {
     return null;
   }
 };
+
+export const getUserFavourites = async () => {
+  const token = localStorage.getItem('token');
+  if (!token) return [];
+
+  try {
+    const response = await fetch(`${API_URL}/favourites`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) throw new Error('Error fetching favourites');
+
+    const data = await response.json();
+    return data.favourites;
+  } catch (error) {
+    console.error('Error fetching favourites:', error);
+    return [];
+  }
+};

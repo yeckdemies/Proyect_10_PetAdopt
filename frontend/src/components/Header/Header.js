@@ -1,4 +1,5 @@
 import { validateUser } from '../../api/userService';
+import { Favourites } from '../../pages/Favourites/Favourites';
 import { navigate } from '../../utils/functions/tools';
 import { routes } from '../../utils/routes/routes';
 import { checkStoredAlert } from '../Alert/Alert';
@@ -35,7 +36,6 @@ export const Header = async () => {
   a.appendChild(img);
   logo.appendChild(a);
 
-  // Añadir el título al lado del logo
   title.className = 'logo-title';
   title.textContent = 'Pet Adopt';
   logo.appendChild(title);
@@ -61,6 +61,9 @@ export const Header = async () => {
       return false;
     }
     if (route.name === 'Editar Mascota') {
+      return false;
+    }
+    if (isAdmin && route.name === 'Favoritos') {
       return false;
     }
     return route.name !== 'Login';
