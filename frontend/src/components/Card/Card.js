@@ -1,5 +1,5 @@
 import './Card.css';
-import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
+import { FavouriteButton } from '../FavouriteButton/FavouriteButton';
 import { Button } from '../Button/Button';
 import { navigate } from '../../utils/functions/tools';
 import { routes } from '../../utils/routes/routes';
@@ -17,9 +17,9 @@ export const createCard = async (pet) => {
   const isAdmin = USER?.role === 'admin';
   const isLogged = !!USER;
 
-  if (pet.showFavorite) {
+  if (pet.showFavourite) {
     const div = document.createElement('div');
-    div.classList.add('favorite-container');
+    div.classList.add('favourite-container');
     card.appendChild(div);
   }
 
@@ -148,10 +148,10 @@ export const createCard = async (pet) => {
     buttonContainer.append(adoptButton);
   }
 
-  if (pet.showFavorite) {
-    const favoriteContainer = card.querySelector('.favorite-container');
-    const favoriteButton = await FavoriteButton(pet);
-    favoriteContainer.append(favoriteButton);
+  if (pet.showFavourite) {
+    const favouriteContainer = card.querySelector('.favourite-container');
+    const favouriteButton = await FavouriteButton(pet);
+    favouriteContainer.append(favouriteButton);
   }
 
   return card;

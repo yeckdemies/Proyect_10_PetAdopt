@@ -3,7 +3,7 @@ import { routes } from '../utils/routes/routes';
 
 const API_URL = 'http://localhost:3000/api/v1/users';
 
-export const addFavorite = async (petId) => {
+export const addFavourite = async (petId) => {
   const token = localStorage.getItem('token');
   const USER = JSON.parse(localStorage.getItem('user'));
   if (!USER) {
@@ -31,7 +31,7 @@ export const addFavorite = async (petId) => {
   }
 };
 
-export const removeFavorite = async (petId) => {
+export const removeFavourite = async (petId) => {
   const token = localStorage.getItem('token');
 
   try {

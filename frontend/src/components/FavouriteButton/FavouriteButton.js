@@ -1,15 +1,15 @@
 import {
-  addFavorite,
-  removeFavorite,
+  addFavourite,
+  removeFavourite,
   getCurrentUser
 } from '../../api/favouriteService';
 import { navigate } from '../../utils/functions/tools';
 import { routes } from '../../utils/routes/routes';
-import './FavoriteButton.css';
+import './FavouriteButton.css';
 
-export const FavoriteButton = async (pet) => {
+export const FavouriteButton = async (pet) => {
   const button = document.createElement('button');
-  button.classList.add('favorite-btn');
+  button.classList.add('favourite-btn');
 
   const img = document.createElement('img');
   img.src =
@@ -56,9 +56,9 @@ export const FavoriteButton = async (pet) => {
     let result;
 
     if (button.classList.contains('active')) {
-      result = await removeFavorite(pet._id);
+      result = await removeFavourite(pet._id);
     } else {
-      result = await addFavorite(pet._id);
+      result = await addFavourite(pet._id);
     }
 
     if (result && result.success) {

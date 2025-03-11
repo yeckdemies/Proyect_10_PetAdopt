@@ -23,9 +23,9 @@ export const Favourites = async () => {
   container.appendChild(ul);
 
   showLoader();
-  const favoritePets = await getUserFavourites();
+  const favouritePets = await getUserFavourites();
 
-  if (!favoritePets.length) {
+  if (!favouritePets.length) {
     const noFavouritesMessage = document.createElement('p');
     noFavouritesMessage.textContent = 'No tienes mascotas favoritas.';
     container.appendChild(noFavouritesMessage);
@@ -35,14 +35,14 @@ export const Favourites = async () => {
     );
     favouritesContainer.innerHTML = '';
 
-    for (const pet of favoritePets) {
+    for (const pet of favouritePets) {
       const li = document.createElement('li');
 
       const card = await createCard({
         ...pet,
         showAdoptButton: USER_ROLE !== 'admin',
         showDeleteButton: USER_ROLE === 'admin',
-        showFavorite: USER_ROLE !== 'admin',
+        showFavourite: USER_ROLE !== 'admin',
         isLoggedIn: IS_LOGGED_IN
       });
 

@@ -40,7 +40,7 @@ export const Pets = async () => {
       ...pet,
       showAdoptButton: USER_ROLE !== 'admin',
       showDeleteButton: USER_ROLE === 'admin',
-      showFavorite: USER_ROLE !== 'admin',
+      showFavourite: USER_ROLE !== 'admin',
       isLoggedIn: IS_LOGGED_IN
     });
 

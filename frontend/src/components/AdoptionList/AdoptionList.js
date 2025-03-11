@@ -81,7 +81,7 @@ export const AdoptionList = async (filter = 'Pending') => {
         sexo: adoption.pet.sexo,
         size: adoption.pet.size || 'No definido',
         type: adoption.pet.type,
-        showFavorite: false,
+        showFavourite: false,
         showAdoptButton: false,
         showDeleteButton: false
       };
