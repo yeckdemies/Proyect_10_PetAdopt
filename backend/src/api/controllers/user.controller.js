@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 const Pet = require('../models/pet.model');
 const bcrypt = require('bcrypt');
 const { signGenerate } = require('../../utils/jwt');
+const Adoption = require('../models/adoption.model');
 
 const getAllUser = async (req, res, next) => {
   try {
@@ -252,19 +253,54 @@ const removeFavourite = async (req, res, next) => {
     });
   }
 };
-
 const getFavourites = async (req, res, next) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user?._id;
+
+    if (!userId) {
+      console.log('User ID not found in request.');
+      return res.status(400).json({ message: 'Invalid user ID' });
+    }
+
+    console.log('Fetching favourites for user:', userId);
 
     const user = await User.findById(userId).populate('favourites');
 
     if (!user) {
+      console.log('User not found');
       return res.status(404).json({ message: 'User not found' });
     }
 
-    return res.status(200).json({ favourites: user.favourites });
+    if (!user.favourites || user.favourites.length === 0) {
+      console.log('User has no favourite pets.');
+      return res.status(200).json({ favourites: [] });
+    }
+
+    console.log(
+      'User favourites before filtering:',
+      user.favourites.map((pet) => pet._id.toString())
+    );
+
+    const activeAdoptions = await Adoption.find({
+      status: { $in: ['Pending', 'Approved'] }
+    }).distinct('pet');
+
+    const activeAdoptionIds = activeAdoptions.map((id) => id.toString());
+
+    console.log('Pets in active adoption:', activeAdoptionIds);
+
+    const filteredFavourites = user.favourites.filter(
+      (pet) => !activeAdoptionIds.includes(pet._id.toString()) // Aseguramos comparación como string
+    );
+
+    console.log(
+      'Filtered favourites:',
+      filteredFavourites.map((pet) => pet._id.toString())
+    );
+
+    return res.status(200).json({ favourites: filteredFavourites });
   } catch (error) {
+    console.error('Error fetching favourites:', error);
     return res.status(500).json({
       message: 'Error fetching favourites',
       error: error.message
