@@ -2,8 +2,23 @@ import { routes } from '../routes/routes';
 
 export const navigate = (e, route) => {
   e.preventDefault();
-  window.history.pushState('', '', route.path);
+  window.history.pushState({}, '', route.path);
+  renderPage(route);
+};
+
+const renderPage = (route) => {
+  document.querySelector('main').innerHTML = '';
   route.page();
+};
+
+window.onpopstate = () => {
+  const path = window.location.pathname;
+  const route = routes.find((r) => r.path === path);
+  if (route) {
+    renderPage(route);
+  } else {
+    document.querySelector('main').innerHTML = '<h2>404 Not Found</h2>';
+  }
 };
 
 export const cerrarFormulario = () => {
@@ -11,8 +26,11 @@ export const cerrarFormulario = () => {
   if (loginOverlay) {
     loginOverlay.remove();
   }
-  navigate(
-    { preventDefault: () => {} },
-    routes.find((route) => route.name === 'Animales')
-  );
+
+  const homeRoute = routes.find((route) => route.name === 'Animales');
+  if (homeRoute) {
+    navigate({ preventDefault: () => {} }, homeRoute);
+  } else {
+    console.error('Not Found');
+  }
 };

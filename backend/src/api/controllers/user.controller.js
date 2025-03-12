@@ -287,8 +287,6 @@ const getFavourites = async (req, res, next) => {
 
     const activeAdoptionIds = activeAdoptions.map((id) => id.toString());
 
-    console.log('Pets in active adoption:', activeAdoptionIds);
-
     const filteredFavourites = user.favourites.filter(
       (pet) => !activeAdoptionIds.includes(pet._id.toString()) // Aseguramos comparación como string
     );
@@ -300,7 +298,6 @@ const getFavourites = async (req, res, next) => {
 
     return res.status(200).json({ favourites: filteredFavourites });
   } catch (error) {
-    console.error('Error fetching favourites:', error);
     return res.status(500).json({
       message: 'Error fetching favourites',
       error: error.message
