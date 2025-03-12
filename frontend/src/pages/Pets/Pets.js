@@ -25,29 +25,32 @@ export const Pets = async () => {
   showLoader();
   const pets = await fetchAvailablePets();
 
-  if (!pets.length) {
-    console.error('No pets found or invalid API response');
-    return;
-  }
-
-  const petsContainer = container.querySelector('#petscontainer');
-  petsContainer.innerHTML = '';
-
-  for (const pet of pets) {
-    const li = document.createElement('li');
-
-    const card = await createCard({
-      ...pet,
-      showAdoptButton: USER_ROLE !== 'admin',
-      showDeleteButton: USER_ROLE === 'admin',
-      showFavourite: USER_ROLE !== 'admin',
-      isLoggedIn: IS_LOGGED_IN
-    });
-
-    li.appendChild(card);
-    petsContainer.append(li);
-  }
-
   hideLoader();
+
+  if (!pets.length) {
+    const emptyMessage = document.createElement('p');
+    emptyMessage.textContent = 'No hay mascotas disponibles en este momento.';
+    emptyMessage.classList.add('empty-message');
+    container.appendChild(emptyMessage);
+  } else {
+    const petsContainer = container.querySelector('#petscontainer');
+    petsContainer.innerHTML = '';
+
+    for (const pet of pets) {
+      const li = document.createElement('li');
+
+      const card = await createCard({
+        ...pet,
+        showAdoptButton: USER_ROLE !== 'admin',
+        showDeleteButton: USER_ROLE === 'admin',
+        showFavourite: USER_ROLE !== 'admin',
+        isLoggedIn: IS_LOGGED_IN
+      });
+
+      li.appendChild(card);
+      petsContainer.append(li);
+    }
+  }
+
   main.append(container);
 };
