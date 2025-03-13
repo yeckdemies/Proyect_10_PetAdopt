@@ -34,3 +34,13 @@ export const cerrarFormulario = () => {
     console.error('Not Found');
   }
 };
+
+export const handleApiResponse = async (response) => {
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || `Error: ${response.statusText}`);
+  }
+};

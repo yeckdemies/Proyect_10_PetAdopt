@@ -112,7 +112,7 @@ export const PetForm = ({ mode, petData = {}, onSubmit }) => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    onSubmit(formData);
+    onSubmit(formData, submitButton);
   });
 
   formContainer.appendChild(form);

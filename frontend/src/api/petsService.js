@@ -1,4 +1,5 @@
 import { hideLoader, showLoader } from '../components/Loader/Loader';
+import { handleApiResponse } from '../utils/functions/tools';
 
 const API_URL = 'http://localhost:3000/api/v1/pets';
 const TOKEN = localStorage.getItem('token');
@@ -33,13 +34,10 @@ export const registerPet = async (formData) => {
       body: formData
     });
 
-    if (!response.ok) {
-      throw new Error(`Error registering pet: ${response.statusText}`);
-    }
-    return true;
+    return handleApiResponse(response);
   } catch (error) {
     console.error('Error registrando la mascota:', error);
-    return false;
+    throw error;
   }
 };
 
@@ -53,6 +51,8 @@ export const deletePet = async (petId) => {
         Authorization: `Bearer ${TOKEN}`
       }
     });
+
+    hideLoader();
 
     if (!response.ok) {
       throw new Error(`Error deleting pet: ${response.statusText}`);
