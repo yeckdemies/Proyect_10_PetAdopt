@@ -18,7 +18,7 @@ export const fetchAvailablePets = async () => {
       throw new Error(`Error fetching pets: ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const data = await handleApiResponse(response);
     return data.availablePets || [];
   } catch (error) {
     console.error('Error fetching available pets:', error);
@@ -44,7 +44,6 @@ export const registerPet = async (formData) => {
 export const deletePet = async (petId) => {
   try {
     showLoader();
-    const TOKEN = localStorage.getItem('token');
     const response = await fetch(`${API_URL}/deletePet/${petId}`, {
       method: 'DELETE',
       headers: {
@@ -53,15 +52,10 @@ export const deletePet = async (petId) => {
     });
 
     hideLoader();
-
-    if (!response.ok) {
-      throw new Error(`Error deleting pet: ${response.statusText}`);
-    }
-
-    return true;
+    return handleApiResponse(response);
   } catch (error) {
     console.error('Error eliminando la mascota:', error);
-    return false;
+    throw error;
   }
 };
 
@@ -71,14 +65,10 @@ export const getPetById = async (petId) => {
       headers: HEADER
     });
 
-    if (!response.ok) {
-      throw new Error(`Error fetching pet: ${response.statusText}`);
-    }
-
-    return await response.json();
+    return await handleApiResponse(response);
   } catch (error) {
     console.error('Error fetching pet by ID:', error);
-    return null;
+    throw error;
   }
 };
 
@@ -92,13 +82,9 @@ export const updatePet = async (petId, formData) => {
       body: formData
     });
 
-    if (!response.ok) {
-      throw new Error(`Error updating pet: ${response.statusText}`);
-    }
-
-    return await response.json();
+    return await handleApiResponse(response);
   } catch (error) {
     console.error('Error updating pet:', error);
-    return null;
+    throw error;
   }
 };
