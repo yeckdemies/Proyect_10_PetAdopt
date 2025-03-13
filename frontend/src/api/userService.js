@@ -69,8 +69,13 @@ const handleErrorResponse = async (res, form) => {
     errorMessage = 'Error desconocido';
   }
 
+  const existingError = form.querySelector('.errorlogin');
+  if (existingError) {
+    existingError.remove();
+  }
+
   const pError = document.createElement('p');
-  pError.classList.add('error');
+  pError.classList.add('errorlogin');
   pError.textContent = errorMessage;
   pError.style.color = 'red';
 

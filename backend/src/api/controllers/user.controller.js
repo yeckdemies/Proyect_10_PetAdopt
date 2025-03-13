@@ -276,11 +276,6 @@ const getFavourites = async (req, res, next) => {
       return res.status(200).json({ favourites: [] });
     }
 
-    console.log(
-      'User favourites before filtering:',
-      user.favourites.map((pet) => pet._id.toString())
-    );
-
     const activeAdoptions = await Adoption.find({
       status: { $in: ['Pending', 'Approved'] }
     }).distinct('pet');
