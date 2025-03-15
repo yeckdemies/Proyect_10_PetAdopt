@@ -5,7 +5,6 @@ import {
 } from '../../api/adoptionService';
 import { createCard } from '../Card/Card';
 import { showLoader, hideLoader } from '../Loader/Loader';
-import { deletePet } from '../../api/petsService';
 import './AdoptionList.css';
 import { PageTitle } from '../PageTitle/PageTitle';
 
